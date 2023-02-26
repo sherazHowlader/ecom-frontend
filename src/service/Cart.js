@@ -1,6 +1,6 @@
 import {Api} from "./axiosInstance";
 
-const END_POINT = '/cart';
+const END_POINT = '/carts';
 
 export default {
     all() {
