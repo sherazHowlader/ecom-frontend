@@ -43,21 +43,21 @@
                         </div>
                     </div>
                 </div>
-
+Local - {{carts}}
                 <div class="cart-single-list" v-for="cart in carts" :key="cart.id">
                     <div class="row align-items-center">
                         <div class="col-lg-1 col-md-1 col-12">
-                            <a href="product-details.html">
-                                <img :src="'frontend/images/products/' + cart.image" alt="#">
+                            <a :href="'/product/' + cart.products.slug" >
+                                <img :src="cart.products.image" alt="#">
                             </a>
                         </div>
-
+<!--DB - {{cart}}-->
                         <div class="col-lg-4 col-md-3 col-12">
                             <h5 class="product-name">
-                                <router-link :to="'/product/' + cart.slug"> {{ cart.name }}</router-link>
+                                <router-link :to="'/product/' + cart.products.slug"> {{ cart.products.name }}</router-link>
                             </h5>
                             <p class="product-des">
-                                <span><em>Category:</em> {{ cart.category_name }} </span>
+                                <span><em>Category:</em> {{ cart.products.category_name }} </span>
                                 <span><em>Variant:</em> {{ cart.product_variant }} </span>
                             </p>
                         </div>
@@ -65,11 +65,11 @@
                             <div class="count-input">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-primary"
-                                            @click.prevent="dec(cart)" :disabled="cart.cart_quantity <= 1">
+                                            @click.prevent="dec(cart)" :disabled="cart.quantity <= 1">
                                         -
                                     </button>
 
-                                    <input type="button" class="btn btn-secondary" :value="cart.cart_quantity">
+                                    <input type="button" class="btn btn-secondary" :value="cart.quantity">
 
                                     <button type="button" class="btn btn-info"
                                             @click.prevent="inc(cart)">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p> ৳ {{ (cart.discount_price ? cart.discount_price : cart.regular_price) * cart.cart_quantity }}</p>
+                            <p> ৳ {{ (cart.discount_price ? cart.discount_price : cart.regular_price) * cart.quantity }}</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <span v-if="cart.discount_price">
@@ -155,6 +155,7 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import axios from "axios";
 
 export default {
     name: "cart",
@@ -179,10 +180,15 @@ export default {
         ...mapActions({
             dec: 'cart/dec',
             inc: 'cart/inc',
+            token: 'cart/token',
             removeCartItem: 'cart/removeItem',
             applyCoupon: 'applyCoupon',
             cancelCoupon: 'cancelCoupon',
         }),
     },
+
+  mounted() {
+    this.token();
+  },
 }
 </script>

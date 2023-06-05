@@ -10,13 +10,12 @@
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12" v-for="product in products" :key="product.id">
           <form @submit.prevent="addProductToCart({product, quantity, variant})">
             <div class="single-product">
               <div class="product-image">
-                <img :src="path + product.image" alt="#">
+                <img :src="product.image" alt="#">
 
                 <span class="sale-tag"
                       v-if="product.discount_price">
@@ -71,7 +70,6 @@ export default {
 
   data() {
     return {
-      path: 'http://127.0.0.1:8000/',
       quantity: 1,
       variant: '',
     }

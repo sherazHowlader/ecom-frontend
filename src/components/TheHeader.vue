@@ -152,18 +152,20 @@
                           <i class="lni lni-close"></i>
                         </a>
                         <div class="cart-img-head">
-                          <a class="cart-img" href=""><img
-                              :src="'/frontend/images/products/' + cart.image" alt="#"></a>
+                          <a class="cart-img" href="">
+                            <img :src="cart.products.image" alt="#">
+                          </a>
                         </div>
                         <div class="content">
                           <h4>
-                            <router-link :to="'/product/' + cart.slug">{{ cart.name }}</router-link>
+                            <router-link :to="'/product/' + cart.products.slug">{{ cart.products.name }}</router-link>
                           </h4>
-                          <p class="quantity">{{ cart.cart_quantity }}x -
+                          <p class="quantity">{{ cart.quantity }}x -
                             <span class="amount">৳ {{
                                 cart.discount_price ? cart.discount_price : cart.regular_price
                               }} </span>
                           </p>
+                          <small>{{cart.product_variant}}</small>
                         </div>
                       </li>
 

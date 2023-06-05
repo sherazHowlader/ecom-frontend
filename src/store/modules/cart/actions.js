@@ -15,8 +15,10 @@ export const addProductToCart = ({commit}, {product, quantity, variant} ) => {
 }
 
 export const inc = ({commit}, cart) => {
-    commit('inc', cart)
-    Cart.inc('cart-inc', cart.SKU);
+    // console.log(cart);
+
+    commit('inc', cart) //for local update
+    Cart.inc('cart-inc', cart.SKU); //for DB update
 }
 
 export const dec = ({commit}, cart) => {
@@ -25,6 +27,17 @@ export const dec = ({commit}, cart) => {
 }
 
 export const removeItem = ({commit}, cart) => {
+    console.log(cart);
     commit('remove_items', cart)
     Cart.delete('cart-item-remove', cart.SKU);
 }
+
+export const token = ({commit}) => {
+    Cart.getToken('csrf-token', {
+        '_method': localStorage.getItem('tn')
+    })
+        .then((items) => {
+            commit('Token', items.data.csrfToken);
+            console.log(items.data.csrfToken);
+        });
+};

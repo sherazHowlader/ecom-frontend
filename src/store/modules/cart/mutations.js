@@ -1,3 +1,5 @@
+import {token} from "./actions.js";
+
 export const add_items = (state, {product, qty, variant}) => {
 
     let sku = variant.SKU ? variant.SKU : product.SKU;
@@ -13,11 +15,11 @@ export const add_items = (state, {product, qty, variant}) => {
         // ekhane data gulo string akare aschilo
         // tai string data ke intiger a convert korar jonno parseInt() use kora hoiche
         // eta na korle 2 tar value + hobe na (Exm: 2+2=4 er poriborte 22 dekhabe)
-        let cQuantity = parseInt(productInCart.cart_quantity);
+        let cQuantity = parseInt(productInCart.cquantity);
         let inQuantity = parseInt(qty);
         let total = cQuantity += inQuantity;
 
-        return productInCart.cart_quantity = total;
+        return productInCart.quantity = total;
     } else {
         let product_price = '';
 
@@ -45,22 +47,25 @@ export const set_items = (state, items) => {
 }
 
 export const inc = (state, cart) => {
-    let productInCart = state.items.find(item => {
+    let items = state.items.find(item => {
         return item.SKU == cart.SKU;
     });
+    // console.log(items)
+    // console.log(cart)
 
-    if (productInCart) {
-        return productInCart.cart_quantity++;
+    // item.SKU == cart.SKU ei 2 ta match korle quantity increment hobe
+    if (items) {
+        return items.quantity++;
     }
 }
 
 export const dec = (state, cart) => {
-    let productInCart = state.items.find(item => {
+    let items = state.items.find(item => {
         return item.SKU == cart.SKU;
     });
 
-    if (productInCart) {
-        return productInCart.cart_quantity--;
+    if (items) {
+        return items.quantity--;
     }
 }
 
@@ -72,3 +77,7 @@ export const remove_items = (state, cart) => {
     })
 }
 
+export const Token = (state, token) => {
+    state.token = token;
+    localStorage.setItem('tn', token);
+}

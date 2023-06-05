@@ -28,23 +28,22 @@
 
                 <div class="main-img d-flex justify-content-center">
                     <span v-if="image">
-                        <img :src="path + image" id="current" alt="#" height="350" style="width: 605px;"/>
+                        <img :src="image" id="current" alt="#" height="350" style="width: 605px;"/>
                     </span>
 
                   <span v-else>
-                     <img v-if="product.image" :src="path + product.image" height="350"/>
+                     <img v-if="product.image" :src="product.image" height="350"/>
                   </span>
                 </div>
 
                 <div class="images">
-                  <img v-for="image in images"
-                       :src="path + image.image"
+                  <img v-for="image in product.otherImages"
+                       :src="image"
                        class="img" alt="#"
-                       @click="imageSelector(image.image)"
+                       @click="imageSelector(image)"
                        height="80"
                   >
                 </div>
-
               </main>
             </div>
           </div>
@@ -371,7 +370,6 @@ export default {
 
   data() {
     return {
-      path: 'http://127.0.0.1:8000/',
       image: '',
       quantity: 1,
       variant: '',
