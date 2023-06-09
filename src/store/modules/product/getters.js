@@ -12,3 +12,11 @@ export const product_images = (state) => {
 export const product_variants = (state) => {
     return state.variants;
 }
+
+export const allCategories = (state) => {
+    return state.categories;
+}
+
+export const category_products = (state) => {
+    return state.category_products;
+}

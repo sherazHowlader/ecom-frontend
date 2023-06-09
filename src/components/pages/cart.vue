@@ -43,21 +43,21 @@
                         </div>
                     </div>
                 </div>
-Local - {{carts}}
+<!-- Local - {{carts}} -->
                 <div class="cart-single-list" v-for="cart in carts" :key="cart.id">
                     <div class="row align-items-center">
                         <div class="col-lg-1 col-md-1 col-12">
-                            <a :href="'/product/' + cart.products.slug" >
-                                <img :src="cart.products.image" alt="#">
+                            <a :href="'/product/' + cart.slug" >
+                                <img :src="cart.image" alt="#">
                             </a>
                         </div>
 <!--DB - {{cart}}-->
                         <div class="col-lg-4 col-md-3 col-12">
                             <h5 class="product-name">
-                                <router-link :to="'/product/' + cart.products.slug"> {{ cart.products.name }}</router-link>
+                                <router-link :to="'/product/' + cart.slug"> {{ cart.name }}</router-link>
                             </h5>
                             <p class="product-des">
-                                <span><em>Category:</em> {{ cart.products.category_name }} </span>
+                                <span><em>Category:</em> {{ cart.category_name }} </span>
                                 <span><em>Variant:</em> {{ cart.product_variant }} </span>
                             </p>
                         </div>

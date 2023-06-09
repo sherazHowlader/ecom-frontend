@@ -146,19 +146,19 @@
                     <ul class="shopping-list">
 
 
-                      <li v-for="cart in carts" :key="cart.id">
+                      <li v-for="(cart, key) in carts" :key="key">
                         <a class="remove" title="Remove this item"
                            @click.prevent="removeCartItem(cart)">
                           <i class="lni lni-close"></i>
                         </a>
                         <div class="cart-img-head">
                           <a class="cart-img" href="">
-                            <img :src="cart.products.image" alt="#">
+                            <img :src="cart.image" alt="#">
                           </a>
                         </div>
                         <div class="content">
                           <h4>
-                            <router-link :to="'/product/' + cart.products.slug">{{ cart.products.name }}</router-link>
+                            <router-link :to="'/product/' + cart.slug">{{ cart.name }}</router-link>
                           </h4>
                           <p class="quantity">{{ cart.quantity }}x -
                             <span class="amount">৳ {{
@@ -189,7 +189,6 @@
       </div>
     </div>
 
-
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-8 col-md-6 col-12">
@@ -198,34 +197,24 @@
             <div class="mega-category-menu">
               <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
               <ul class="sub-category">
-                <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
+                
+                <li v-for="category in categories" :key="category.id">
+                  
+                  <router-link :to="`/categorie/` + category.slug" v-if="category.subcategorie.length > 0"> 
+                    {{ category.name }}
+                    <i class="lni lni-chevron-right" ></i>
+                  </router-link>
+
+                  <router-link :to="{name:'categories', params:{slug: category.slug} }" v-else > {{ category.name }} </router-link>
+
                   <ul class="inner-sub-category">
-                    <li><a href="product-grids.html">Digital Cameras</a></li>
-                    <li><a href="product-grids.html">Camcorders</a></li>
-                    <li><a href="product-grids.html">Camera Drones</a></li>
-                    <li><a href="product-grids.html">Smart Watches</a></li>
-                    <li><a href="product-grids.html">Headphones</a></li>
-                    <li><a href="product-grids.html">MP3 Players</a></li>
-                    <li><a href="product-grids.html">Microphones</a></li>
-                    <li><a href="product-grids.html">Chargers</a></li>
-                    <li><a href="product-grids.html">Batteries</a></li>
-                    <li><a href="product-grids.html">Cables & Adapters</a></li>
+                    <li v-for="subcategory in category.subcategorie" :key="subcategory.id">
+                      <a :href="`/subcategory/` + subcategory.slug"> {{ subcategory.name }}</a>
+                    </li>                   
                   </ul>
                 </li>
-                <li><a href="product-grids.html">accessories</a></li>
-                <li><a href="product-grids.html">Televisions</a></li>
-                <li><a href="product-grids.html">best selling</a></li>
-                <li><a href="product-grids.html">top 100 offer</a></li>
-                <li><a href="product-grids.html">sunglass</a></li>
-                <li><a href="product-grids.html">watch</a></li>
-                <li><a href="product-grids.html">man’s product</a></li>
-                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                <li><a href="product-grids.html">Video Games </a></li>
-                <li><a href="product-grids.html">Home Appliances </a></li>
               </ul>
             </div>
-
 
             <nav class="navbar navbar-expand-lg">
               <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -334,16 +323,19 @@ export default {
     ...mapActions({
       loadItem: 'cart/getCartItems',
       removeCartItem: 'cart/removeItem',
+      loadCategories: 'product/getCategories',
     })
   },
   computed: {
     ...mapGetters({
       carts: "cart/items",
       subtotal: "cart/subtotal",
+      categories: "product/allCategories",
     })
   },
   mounted() {
     this.loadItem();
+    this.loadCategories();
   },
 }
 </script>

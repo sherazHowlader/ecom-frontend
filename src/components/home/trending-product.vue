@@ -11,8 +11,9 @@
         </div>
       </div>
       <div class="row">
+
         <div class="col-lg-3 col-md-6 col-12" v-for="product in products" :key="product.id">
-          <form @submit.prevent="addProductToCart({product, quantity, variant})">
+          <form @submit.prevent="addToCart(product)">
             <div class="single-product">
               <div class="product-image">
                 <img :src="product.image" alt="#">
@@ -23,8 +24,8 @@
                 </span>
 
                 <div class="button">
-                  <button type="submit" class="btn"><i
-                      class="lni lni-cart"></i> Add to Cart
+                  <button type="submit" class="btn">
+                    <i class="lni lni-cart"></i> Add to Cart
                   </button>
                 </div>
               </div>
@@ -55,7 +56,7 @@
             </div>
           </form>
         </div>
-
+        
       </div>
     </div>
   </section>
@@ -77,8 +78,9 @@ export default {
 
   methods: {
     ...mapActions({
-      addProductToCart: 'cart/addProductToCart',
+      addToCart: 'cart/addToCart',
       productsLoad: 'product/allProduct',
+      token: 'cart/token',
     }),
   },
 
@@ -91,6 +93,7 @@ export default {
 
   mounted() {
     this.productsLoad();
+    this.token();
   }
 }
 </script>

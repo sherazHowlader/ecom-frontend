@@ -16,4 +16,8 @@ export default {
     login(url, data) {
         return Api.post(`${url}`, data);
     },
+
+    getCoupon(url, data) {
+        return Api.get(`${url}`, data);
+    },
 }

@@ -8,10 +8,12 @@ export const getCartItems = ({commit}) => {
         })
 }
 
-export const addProductToCart = ({commit}, {product, quantity, variant} ) => {
-    var qty = quantity ? quantity: 1;
-    commit('add_items', {product, qty, variant});
-    Cart.store('add-cart-item', {product, qty, variant});
+export const addToCart = ({ commit }, product) => {
+    // var qty = quantity ? quantity: 1;
+    // var variant = variant ? variant: 'Deafult';
+
+    commit('add_items', {product: product});
+    Cart.store('add-cart-item', {product_id: product.id});
 }
 
 export const inc = ({commit}, cart) => {
@@ -33,11 +35,16 @@ export const removeItem = ({commit}, cart) => {
 }
 
 export const token = ({commit}) => {
-    Cart.getToken('csrf-token', {
-        '_method': localStorage.getItem('tn')
-    })
-        .then((items) => {
-            commit('Token', items.data.csrfToken);
-            console.log(items.data.csrfToken);
-        });
+    // Cart.getToken('/csrf-token')
+    //     .then((items) => {
+    //         commit('Token', items.data.token);
+    //         console.log(items.data);
+    //     });
 };
+
+export const placeOrder = ({commit} , order) => {
+    Cart.store('place-order', order)
+        .then((items) => {
+        console.log(items.data);
+    })
+}
