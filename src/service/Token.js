@@ -9,15 +9,11 @@ export default {
         return Api.get(END_POINT);
     },
 
-    coupon(url, data) {
-        return Api.post(`${url}`, data);
-    },
-
     login(url, data) {
         return Api.post(`${url}`, data);
     },
 
-    getCoupon(url, data) {
-        return Api.get(`${url}`, data);
+    getUser(url) {
+        return Api.get(url);
     },
 }

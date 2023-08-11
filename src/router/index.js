@@ -64,8 +64,6 @@ router.beforeEach((to, from, next) => {
         return;
     }
     next();
-
-    // TODO: http://127.0.0.1:8000/login eta likhe dhukle dhuke jay
 });
 
 export default router

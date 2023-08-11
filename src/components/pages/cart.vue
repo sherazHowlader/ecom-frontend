@@ -54,11 +54,11 @@
 <!--DB - {{cart}}-->
                         <div class="col-lg-4 col-md-3 col-12">
                             <h5 class="product-name">
-                                <router-link :to="'/product/' + cart.slug"> {{ cart.name }}</router-link>
+                                <router-link :to="'/product/' + cart.slug">{{ cart.name }}</router-link>
                             </h5>
                             <p class="product-des">
                                 <span><em>Category:</em> {{ cart.category_name }} </span>
-                                <span><em>Variant:</em> {{ cart.product_variant }} </span>
+                                <span><em>Variant:</em> {{ cart.variant }} </span>
                             </p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">

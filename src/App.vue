@@ -2,11 +2,13 @@
     <the-header></the-header>
     <!-- <the-slider></the-slider>
     <featured></featured> -->
-        <!-- <h3 class="text-center" v-if="isAuthenticated"> 
+        <h3 class="text-center" v-if="isAuthenticated"> 
             Your Are Logged In 
             {{isAuthenticated}}
+
+            {{ $store.getters.isAuthenticated }}
         </h3>
-        <h3 class="text-center" v-else> Please Login for full access </h3> -->
+        <h3 class="text-center" v-else> Please Login for full access </h3>
         <router-view :key="$route.path"></router-view>    
     <the-footer></the-footer>
 </template>
@@ -23,10 +25,21 @@ export default {
     components:{
         TheHeader,TheFooter,TheSlider,Featured,
     },
+    methods: {
+        ...mapActions({
+            loadUser: 'loadUerInfo',
+            tokenLoad: 'tokenLoad',
+        })
+    },
     computed: {
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',
         })
+    },
+
+    mounted() {
+        this.loadUser();
+        this.tokenLoad();
     },
 }
 </script>

@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-                    <form class="card login-form" @submit.prevent="login(form)">
+                    <form class="card login-form" @submit.prevent="login(form_data)">
                         <div class="card-body">
                             <div class="title">
                                 <h3>Login Now</h3>
@@ -50,26 +50,29 @@
                                 <span>Or</span>
                             </div>
                             <div class="form-group input-group">
-                                <label for="reg-fn">Email</label>
-                                <input class="form-control" type="email" id="reg-email" v-model="form.email">
+                                <label for="">Email</label>
+                                <input class="form-control" type="text" v-model="form_data.email" name="email">
                             </div>
                             <div class="form-group input-group">
-                                <label for="reg-fn"> Password </label>
-                                <input class="form-control" type="password" id="reg-pass" v-model="form.password">
+                                <label for="password"> Password </label>
+                                <input class="form-control" type="password" v-model="form_data.password" name="password">
                             </div>
                             <div class="d-flex flex-wrap justify-content-between bottom-content">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input width-auto" id="exampleCheck1">
+                                    <input type="checkbox" class="form-check-input width-auto">
                                     <label class="form-check-label"> Remember me </label>
                                 </div>
-                                <a class="lost-pass" href="account-password-recovery.html"> Forgot password? </a>
+                                <a class="lost-pass" href=""> Forgot password? </a>
                             </div>
                             <div class="button">
                                 <button type="submit" class="btn"> Login</button>
                             </div>
-                            <p class="outer-link"> Don't have an account? <a href="register.html"> Register here </a>
+                            <p class="outer-link"> Don't have an account? <a href=""> Register here </a>
                             </p>
                         </div>
+
+
+                        <input class="form-control" type="email">
                     </form>
                 </div>
             </div>
@@ -89,9 +92,9 @@ export default {
 
     data() {
         return {
-            form: {
-                email: "",
-                password: "",
+            form_data: {
+                email: null,
+                password: null,
             },
             visible: false,
         };

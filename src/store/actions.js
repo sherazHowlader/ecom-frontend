@@ -1,29 +1,12 @@
 import Token from "../service/Token";
-
-export const applyCoupon = ({ commit }, data) => {
-
-    let addData = new FormData();
-    addData.append("name", data);
-
-    Token.coupon('/coupon', addData)
-        .then((response) => {
-            console.log(response);
-
-            commit('set_coupon', response.data)
-        }).catch((error) => {
-            console.log(error.response.data.message);
-        });
-}
-
-export const cancelCoupon = ({commit}) => {
-    commit('remove_coupon')
-}
+import axios from "axios";
 
 export const login = ({commit, dispatch}, formData) => {
+    console.log(formData);
     Token.login("/login", formData)
         .then((response) => {
             commit('isAuthenticated', response.data.token)
-            // router.back();
+            // router.back();            
             console.log(response.data.message);
         })
         .catch((error) => {
@@ -34,7 +17,18 @@ export const login = ({commit, dispatch}, formData) => {
 export const tokenLoad = ({commit}) => {
     Token.get()
         .then((response) => {
-            commit('isAuthenticated', response.data)
-        })
-    ;
+            // console.log('action theke - ' + response.data);
+            commit('isAuthenticated', response.data);
+
+            axios.defaults.headers = {
+                Authorization: 'Bearer ' + response.data,
+            };
+        });
+}
+
+export const loadUerInfo = ({commit}) => {
+    Token.getUser('user')
+        .then((response) => {
+            // console.log(response.data);
+        });
 }

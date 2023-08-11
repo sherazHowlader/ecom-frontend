@@ -29,13 +29,6 @@ export const getVariant = ({commit}, slug) => {
         })
 }
 
-export const getCategories = ({commit}) => {
-    Product.all('categories')
-        .then((response) => {
-            commit('all_categories', response.data);
-        })
-}
-
 export const categoryProduct = ({commit}, slug) => {
     Product.bySlug('categorie', slug)
         .then((response) => {

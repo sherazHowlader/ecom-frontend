@@ -165,7 +165,7 @@
                                 cart.discount_price ? cart.discount_price : cart.regular_price
                               }} </span>
                           </p>
-                          <small>{{cart.product_variant}}</small>
+                          <small>{{cart.variant}}</small>
                         </div>
                       </li>
 

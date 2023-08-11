@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import {mapGetters, mapActions} from 'vuex';
 
 export default {
@@ -71,8 +70,6 @@ export default {
 
   data() {
     return {
-      quantity: 1,
-      variant: '',
     }
   },
 
