@@ -362,16 +362,16 @@ export default {
     },
     computed: {
         ...mapGetters({
-            couponName: 'couponName',
+            couponName: 'coupon/name',
             subtotal: 'cart/subtotal',
-            discount: 'couponDiscount',
+            discount: 'coupon/discount',
             carts: 'cart/items',
         })
     },
     methods:{
         ...mapActions({
-            applyCoupon: 'applyCoupon',
-            cancelCoupon: 'cancelCoupon',
+            applyCoupon: 'coupon/applyCoupon',
+            cancelCoupon: 'coupon/cancelCoupon',
             placeOrder: 'cart/placeOrder',
         })
     },

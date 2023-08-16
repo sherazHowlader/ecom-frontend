@@ -76,8 +76,8 @@ export default {
   methods: {
     ...mapActions({
       addToCart: 'cart/addToCart',
-      productsLoad: 'product/allProduct',
-      token: 'cart/token',
+      loadProducts: 'product/allProduct',
+      loadToken: 'token/csrfToken',
     }),
   },
 
@@ -89,8 +89,8 @@ export default {
   },
 
   mounted() {
-    this.productsLoad();
-    this.token();
+    this.loadProducts();
+    this.loadToken();
   }
 }
 </script>

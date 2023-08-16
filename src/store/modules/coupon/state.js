@@ -1,4 +1,4 @@
 export default {
-    couponDiscount: localStorage.getItem('couponDiscount'),
-    couponName: localStorage.getItem('couponName'),
+    name: localStorage.getItem('couponName'),
+    discount: localStorage.getItem('couponDiscount'),
 }

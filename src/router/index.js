@@ -1,6 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import store from "../store";
-
+import store from "../store/index.js";
 const routes = [
     {
         path: '/',
@@ -11,7 +10,7 @@ const routes = [
         path: '/product/:slug',
         name: 'product-details',
         component: () => import('../components/pages/product-details.vue'),
-    },    
+    },
     {
         path: '/categorie/:slug',
         name: 'categories',
@@ -26,13 +25,13 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('../components/pages/login.vue'),
-        meta: { hideForAuth: true }
+        meta: {hideForAuth: true}
     },
     {
         path: '/checkout',
         name: 'checkout',
         component: () => import('../components/pages/checkout.vue'),
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/:catchAll(.*)',
@@ -46,14 +45,10 @@ const router = createRouter({
     routes
 })
 
-// Auth token ta load kora hoiche
-store.dispatch('tokenLoad')
-
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.getters.isAuthenticated;
+    const isAuthenticated = store.getters['token/isAuthenticated'];
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-    if (to.path === '/login' && isAuthenticated){
+    if (to.path === '/login' && isAuthenticated) {
         next('/')
         console.log('sorry you are logged in')
         return;

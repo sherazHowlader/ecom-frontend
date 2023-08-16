@@ -1,4 +1,3 @@
-import {token} from "./actions.js";
 import { useToast } from 'vue-toastification';
 const toast = useToast();
 
@@ -38,7 +37,7 @@ export const set_items = (state, items) => {
 
 export const inc = (state, cart) => {
     let hasItems = state.items.find(item => {
-        return item.SKU == cart.SKU;
+        return item.SKU === cart.SKU;
     });
 
     if (hasItems) {
@@ -49,7 +48,7 @@ export const inc = (state, cart) => {
 
 export const dec = (state, cart) => {
     let hasItems = state.items.find(item => {
-        return item.SKU == cart.SKU;
+        return item.SKU === cart.SKU;
     });
 
     if (hasItems) {

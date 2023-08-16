@@ -11,7 +11,7 @@
           <ul class="breadcrumb-nav">
             <li><a href="index.html"><i class="lni lni-home"></i> Home </a></li>
             <li><a href="index.html"> Shop </a></li>
-            <li> Single Product </li>
+            <li> Single Product</li>
           </ul>
         </div>
       </div>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="images">
-                  <img v-for="image in product.otherImages"
+                  <img v-for="image in product.other_images"
                        :src="image"
                        class="img" alt="#"
                        @click="imageSelector(image)"
@@ -60,7 +60,9 @@
                   ৳ {{ product.discount_price }}
                   <span> ৳ {{ product.regular_price }}</span>
                   <small class="text-danger">
-                    -{{parseFloat((product.regular_price - product.discount_price) / product.regular_price * 100).toFixed()}}%
+                    -{{
+                      parseFloat((product.regular_price - product.discount_price) / product.regular_price * 100).toFixed()
+                    }}%
                   </small>
                 </h4>
 
@@ -129,7 +131,7 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-12">
                     <div class="wish-button">
-                      <button class="btn"><i class="lni lni-reload"></i> Compare </button>
+                      <button class="btn"><i class="lni lni-reload"></i> Compare</button>
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-12">
@@ -232,9 +234,9 @@ export default {
 
   methods: {
     ...mapActions({
-      productLoad: 'product/getProduct',
-      getImages: 'product/getImages',
-      getVariant: 'product/getVariant',
+      loadProduct: 'product/getProduct',
+      loadProductImages: 'product/getImages',
+      loadProductVariant: 'product/getVariant',
       addToCart: 'cart/addToCarts',
     }),
 
@@ -256,15 +258,13 @@ export default {
   computed: {
     ...mapGetters({
       product: 'product/single_product',
-      images: 'product/product_images',
       variants: 'product/product_variants',
     })
   },
 
   mounted() {
-    this.productLoad(this.$route.params.slug);
-    this.getImages(this.$route.params.slug);
-    this.getVariant(this.$route.params.slug);
+    this.loadProduct(this.$route.params.slug);
+    this.loadProductVariant(this.$route.params.slug);
   },
 }
 </script>

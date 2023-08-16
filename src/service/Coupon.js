@@ -1,4 +1,4 @@
-import { Api } from "./axiosInstance";
+import {Api} from "./axiosInstance";
 
 export default {
     apply(url, data) {

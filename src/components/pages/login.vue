@@ -1,6 +1,6 @@
 <template>
 
-    {{$store.getters.isAuthenticated ? $router.push({name: 'home'}): ''}}
+    {{hasToken ? $router.push({name: 'home'}): ''}}
 
     <div class="breadcrumbs">
         <div class="container">
@@ -84,8 +84,6 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
-import store from "../../store";
-import router from "../../router";
 
 export default {
     name: "login",
@@ -99,10 +97,14 @@ export default {
             visible: false,
         };
     },
-
+    computed:{
+      ...mapGetters({
+          hasToken: 'token/isAuthenticated',
+      })
+    },
     methods: {
         ...mapActions({
-            login: 'login',
+            login: 'token/login',
         }),
     },
 }

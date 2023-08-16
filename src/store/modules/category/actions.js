@@ -1,7 +1,7 @@
-import Product from "../../../service/Product";
+import Category from "../../../service/Category";
 
 export const getCategories = ({commit}) => {
-    Product.all('categories')
+    Category.getAll('categories')
         .then((response) => {
             commit('all_categories', response.data);
         })

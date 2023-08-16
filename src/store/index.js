@@ -3,6 +3,8 @@ import cart from './modules/cart';
 import category from './modules/category';
 import product from './modules/product';
 import token from './modules/token';
+import coupon from './modules/coupon';
+import auth from './modules/auth';
 
 import state from "./state";
 import * as getters from './getters';
@@ -18,8 +20,10 @@ const store = createStore({
     modules: {
         cart,
         category,
+        product,
         token,
-        product
+        coupon,
+        auth
     }
 })
 export default store;

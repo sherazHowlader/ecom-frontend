@@ -22,8 +22,4 @@ export default {
     delete(url, SKU) {
         return Api.delete(`${url}/${SKU}`);
     },
-
-    getToken(url) {
-        return Api.get(`${url}`);
-    },
 }

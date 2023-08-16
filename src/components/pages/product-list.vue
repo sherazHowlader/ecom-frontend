@@ -1,5 +1,5 @@
 <template>
-      <div class="breadcrumbs">
+  <div class="breadcrumbs">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 col-md-6 col-12">
@@ -66,10 +66,10 @@
             <div class="single-widget range">
               <h3>Price Range</h3>
               <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10"
-                onchange="rangePrimary.value=value">
+                     onchange="rangePrimary.value=value">
               <div class="range-inner">
                 <label>$</label>
-                <input type="text" id="rangePrimary" placeholder="100" />
+                <input type="text" id="rangePrimary" placeholder="100"/>
               </div>
             </div>
 
@@ -180,14 +180,14 @@
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button class="nav-link " id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#nav-grid"
-                        type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i
+                              type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i
                           class="lni lni-grid-alt"></i>
-                        </button>
+                      </button>
 
                       <button class="nav-link active" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list"
-                        type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i
+                              type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i
                           class="lni lni-list"></i>
-                        </button>
+                      </button>
                     </div>
                   </nav>
                 </div>
@@ -205,9 +205,9 @@
                       <div class="product-image">
                         <img :src="product.image" alt="#">
                         <div class="button">
-                            <button type="submit" class="btn">
-                                <i class="lni lni-cart"></i> Add to Cart
-                            </button>
+                          <button type="submit" class="btn">
+                            <i class="lni lni-cart"></i> Add to Cart
+                          </button>
                         </div>
                       </div>
                       <div class="product-info">
@@ -229,30 +229,16 @@
                                 <span class="discount-price"> ৳ {{ product.regular_price }} </span>
                             </span>
 
-                            <span v-else> ৳ {{ product.regular_price }} </span>
+                          <span v-else> ৳ {{ product.regular_price }} </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  
-                  
-
-
-
-
-
-
-
-
-
-
-
-
 
                 </div>
-<!-- ====================================== -->
-                
+                <!-- ====================================== -->
+
                 <div class="row">
                   <div class="col-12">
                     <div class="pagination left">
@@ -272,50 +258,52 @@
               <div class="tab-pane show active fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                 <div class="row">
 
-                    <div class="col-lg-3 col-md-6 col-12" v-for="product in category_products" :key="product.id">
-          <form @submit.prevent="addToCart(product)">
-            <div class="single-product">
-              <div class="product-image">
-                <img :src="product.image" alt="#">
+                  <div class="col-lg-3 col-md-6 col-12" v-for="product in category_products" :key="product.id">
+                    <form @submit.prevent="addToCart(product)">
+                      <div class="single-product">
+                        <div class="product-image">
+                          <img :src="product.image" alt="#">
 
-                <span class="sale-tag"
-                      v-if="product.discount_price">
-                      -{{parseFloat((product.regular_price - product.discount_price) / product.regular_price * 100).toFixed()}}%
+                          <span class="sale-tag"
+                                v-if="product.discount_price">
+                      -{{
+                              parseFloat((product.regular_price - product.discount_price) / product.regular_price * 100).toFixed()
+                            }}%
                 </span>
 
-                <div class="button">
-                  <button type="submit" class="btn">
-                    <i class="lni lni-cart"></i> Add to Cart
-                  </button>
-                </div>
-              </div>
-              <div class="product-info">
-                <span class="category"> {{ product.category_name }} </span>
-                <h4 class="title">
-                  <router-link :to="`/product/` + product.slug"> {{ product.name }}</router-link>
-                </h4>
-                <ul class="review">
-                  <li><i class="lni lni-star-filled"></i></li>
-                  <li><i class="lni lni-star-filled"></i></li>
-                  <li><i class="lni lni-star-filled"></i></li>
-                  <li><i class="lni lni-star-filled"></i></li>
-                  <li><i class="lni lni-star"></i></li>
-                  <li><span>4.0 Review(s)</span></li>
-                </ul>
+                          <div class="button">
+                            <button type="submit" class="btn">
+                              <i class="lni lni-cart"></i> Add to Cart
+                            </button>
+                          </div>
+                        </div>
+                        <div class="product-info">
+                          <span class="category"> {{ product.category_name }} </span>
+                          <h4 class="title">
+                            <router-link :to="`/product/` + product.slug"> {{ product.name }}</router-link>
+                          </h4>
+                          <ul class="review">
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star"></i></li>
+                            <li><span>4.0 Review(s)</span></li>
+                          </ul>
 
-                <div class="price">
+                          <div class="price">
                   <span v-if="product.discount_price">
                       ৳ {{ product.discount_price }}
                       <span class="discount-price"> ৳ {{ product.regular_price }} </span>
                   </span>
 
-                  <span v-else> ৳ {{ product.regular_price }} </span>
-                </div>
+                            <span v-else> ৳ {{ product.regular_price }} </span>
+                          </div>
 
-              </div>
-            </div>
-          </form>
-        </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
 
                 </div>
                 <div class="row">
@@ -343,25 +331,26 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-    export default {
-        name: "product-list",
+import {mapActions, mapGetters} from 'vuex'
 
-        methods: {
-            ...mapActions({
-                addToCart: 'cart/addToCart',
-                loadCategoryWiseProduct: 'product/categoryProduct'
-            })
-        },
+export default {
+  name: "product-list",
 
-        computed: {
-            ...mapGetters({
-                category_products: 'product/category_products'
-            })
-        },
+  methods: {
+    ...mapActions({
+      addToCart: 'cart/addToCart',
+      loadCategoryWiseProduct: 'product/categoryProduct'
+    })
+  },
 
-        mounted() {
-            this.loadCategoryWiseProduct(this.$route.params.slug);
-        },
-    }
+  computed: {
+    ...mapGetters({
+      category_products: 'product/category_products'
+    })
+  },
+
+  mounted() {
+    this.loadCategoryWiseProduct(this.$route.params.slug);
+  },
+}
 </script>

@@ -1,7 +1,7 @@
-export const couponName = (state) => {
-    return state.couponName;
+export const name = (state) => {
+    return state.name;
 }
 
-export const couponDiscount = (state) => {
-    return state.couponDiscount;
+export const discount = (state) => {
+    return state.discount;
 }

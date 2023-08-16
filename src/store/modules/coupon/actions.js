@@ -1,6 +1,8 @@
-import Coupon from "../../../service/Coupon.js";
+import Coupon from "../../../service/Coupon";
+import {useToast} from 'vue-toastification';
+const toast = useToast();
 
-export const applyCoupon = ({ commit }, data) => {
+export const applyCoupon = ({commit}, data) => {
     let addData = new FormData();
     addData.append("name", data);
 
@@ -8,8 +10,8 @@ export const applyCoupon = ({ commit }, data) => {
         .then((response) => {
             commit('set_coupon', response.data)
         }).catch((error) => {
-            console.log(error.response.data.message);
-        });
+        toast.error("Oops! wrong coupon")
+    });
 }
 
 export const cancelCoupon = ({commit}) => {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import Product from "../../../service/Product";
 
 export const allProduct = ({commit}) => {

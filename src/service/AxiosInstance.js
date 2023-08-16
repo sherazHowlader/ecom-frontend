@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../store";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -9,22 +8,39 @@ export const Api = axios.create({
     withCredentials: true,
 });
 
-
-// store.dispatch('tokenLoad');
-
-// api te request jawar age header a deafult token set kora
 Api.interceptors.request.use(
-    function (request) {       
-        
-        // const token = store.getters.isAuthenticated;
-        // console.log(store.getters.isAuthenticated);
-
+    function (request) {
+        // Add the 'Authorization' header
         request.headers = {
-            // 'Authorization': 'Bearer ' + token,
+            ...request.headers,
+            'Authorization': 'Bearer ' + '13|wn51z8hXIvY1kT3w0zVRh5F7yhyZx933AhqyXW2F',
             'Accept': 'application/json',
         };
+
+        // Fetch the CSRF token from the cookie
+        const csrfToken = getCsrfToken();
+        if (csrfToken) {
+            request.headers['X-XSRF-TOKEN'] = csrfToken;
+        }
+
+        // console.log('Request URL:', request.url);
+        // console.log('Request Headers:', request.headers);
         return request;
-    }, function (error) {
+    },
+    function (error) {
         return Promise.reject(error);
     }
 );
+
+// Fetch the CSRF token from the cookie
+function getCsrfToken() {
+    const csrfCookie = document.cookie
+        .split(";")
+        .find(cookie => cookie.trim().startsWith("XSRF-TOKEN="));
+
+    if (csrfCookie) {
+        return csrfCookie.split("=")[1];
+    }
+
+    return null;
+}

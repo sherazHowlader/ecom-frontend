@@ -1,3 +1,4 @@
 export default {
-    token: '',
+    csrf_token: '',
+    isAuthenticated: null,
 }

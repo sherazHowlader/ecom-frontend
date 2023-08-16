@@ -315,26 +315,25 @@ export default {
   name: "TheHeader",
   data() {
     return {
-      path: 'http://127.0.0.1:8000/',
     }
   },
 
   methods: {
     ...mapActions({
-      loadItem: 'cart/getCartItems',
+      loadCartItem: 'cart/getCartItems',
       removeCartItem: 'cart/removeItem',
-      loadCategories: 'product/getCategories',
+      loadCategories: 'category/getCategories',
     })
   },
   computed: {
     ...mapGetters({
       carts: "cart/items",
       subtotal: "cart/subtotal",
-      categories: "product/allCategories",
+      categories: "category/allCategories",
     })
   },
   mounted() {
-    this.loadItem();
+    this.loadCartItem();
     this.loadCategories();
   },
 }
