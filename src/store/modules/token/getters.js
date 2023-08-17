@@ -5,3 +5,7 @@ export const csrf_token = (state) => {
 export const isAuthenticated = (state) => {
     return state.isAuthenticated;
 }
+
+export const hasToken = (state) => {
+    return state.hasToken;
+}

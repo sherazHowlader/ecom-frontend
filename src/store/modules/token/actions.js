@@ -1,13 +1,14 @@
 import Token from "../../../service/Token";
-import axios from "axios";
+import Cookies from 'js-cookie';
 
 export const login = ({commit, dispatch}, formData) => {
-    console.log(formData);
     Token.login("/login", formData)
         .then((response) => {
             commit('isAuthenticated', response.data.token)
-            // router.back();
-            console.log(response.data.message);
+            Cookies.set("token", response.data.token, {
+                sameSite: "lax",
+                secure: true,
+            });
         })
         .catch((error) => {
             console.log(error.response.data.message);
@@ -25,5 +26,9 @@ export const authToken = ({commit}) => {
     Token.get('/mytoken')
         .then((response) => {
             commit('isAuthenticated', response.data);
+            Cookies.set("token", response.data, {
+                sameSite: "lax",
+                secure: true,
+            });
         });
 }

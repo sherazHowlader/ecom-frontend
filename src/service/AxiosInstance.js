@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -9,22 +10,17 @@ export const Api = axios.create({
 });
 
 Api.interceptors.request.use(
-    function (request) {
-        // Add the 'Authorization' header
+    async function (request) {
         request.headers = {
             ...request.headers,
-            'Authorization': 'Bearer ' + '13|wn51z8hXIvY1kT3w0zVRh5F7yhyZx933AhqyXW2F',
+            'Authorization': 'Bearer ' + Cookies.get('token'),
             'Accept': 'application/json',
         };
 
-        // Fetch the CSRF token from the cookie
-        const csrfToken = getCsrfToken();
+        const csrfToken = await getCsrfToken();
         if (csrfToken) {
             request.headers['X-XSRF-TOKEN'] = csrfToken;
         }
-
-        // console.log('Request URL:', request.url);
-        // console.log('Request Headers:', request.headers);
         return request;
     },
     function (error) {
@@ -32,8 +28,7 @@ Api.interceptors.request.use(
     }
 );
 
-// Fetch the CSRF token from the cookie
-function getCsrfToken() {
+async function getCsrfToken() {
     const csrfCookie = document.cookie
         .split(";")
         .find(cookie => cookie.trim().startsWith("XSRF-TOKEN="));
@@ -41,6 +36,5 @@ function getCsrfToken() {
     if (csrfCookie) {
         return csrfCookie.split("=")[1];
     }
-
     return null;
 }

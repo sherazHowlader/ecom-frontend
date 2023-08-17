@@ -2,13 +2,8 @@
   <the-header></the-header>
   <!-- <the-slider></the-slider>
   <featured></featured> -->
-  <h3 class="text-center" v-if="isAuthenticated">
-    Your Are Logged In
-    {{ isAuthenticated }}
-  </h3>
-  <h3 class="text-center" v-else> Please Login for full access </h3>
-  <h1 v-if="userInfo" class="text-center"> {{ userInfo.email }} </h1>
 
+  <h1 v-if="userInfo" class="text-center"> {{ userInfo.email }} </h1>
   <router-view :key="$route.path"></router-view>
   <the-footer></the-footer>
 </template>
@@ -26,6 +21,7 @@ export default {
   components: {
     TheHeader, TheFooter, TheSlider, Featured,
   },
+
   methods: {
     ...mapActions({
       loadToken: 'token/authToken',
