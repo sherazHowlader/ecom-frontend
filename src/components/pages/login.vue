@@ -1,7 +1,4 @@
 <template>
-
-    {{hasToken ? $router.push({name: 'home'}): ''}}
-
     <div class="breadcrumbs">
         <div class="container">
             <div class="row align-items-center">
@@ -70,9 +67,6 @@
                             <p class="outer-link"> Don't have an account? <a href=""> Register here </a>
                             </p>
                         </div>
-
-
-                        <input class="form-control" type="email">
                     </form>
                 </div>
             </div>
@@ -84,6 +78,7 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import router from "../../router/index.js";
 
 export default {
     name: "login",
@@ -99,7 +94,7 @@ export default {
     },
     computed:{
       ...mapGetters({
-          hasToken: 'token/isAuthenticated',
+          hasToken: 'token/hasToken',
       })
     },
     methods: {
@@ -107,5 +102,11 @@ export default {
             login: 'token/login',
         }),
     },
+
+  mounted() {
+    if (this.hasToken) {
+      router.push({ name: 'home' });
+    }
+  }
 }
 </script>

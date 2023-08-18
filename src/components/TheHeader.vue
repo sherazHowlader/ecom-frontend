@@ -72,10 +72,10 @@
                 <li v-if="userInfo">
                   <router-link to="#" @click="logOut()"> Log Out </router-link>
                 </li>
-                <li v-show="!userInfo">
+                <li v-if="!userInfo">
                   <router-link to="/login"> Sign In  </router-link>
                 </li>
-                <li v-show="!userInfo">
+                <li v-if="!userInfo">
                   <a href="register">Register</a>
                 </li>
               </ul>
@@ -349,7 +349,7 @@ export default {
     this.loadCartItem();
     this.loadCategories();
 
-    // this.loadToken();
+    this.loadToken();
     if (this.hasToken){
       this.loadUserInfo();
     }
