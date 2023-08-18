@@ -1,5 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import store from "../store/index.js";
+import { useToast } from 'vue-toastification';
+const toast = useToast();
+
 const routes = [
     {
         path: '/',
@@ -50,7 +53,9 @@ router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     if (to.path === '/login' && isAuthenticated) {
         next('/')
-        console.log('sorry you are logged in')
+        toast.warning('You are logged in', {
+            position: 'bottom-right'
+        });
         return;
     }
 

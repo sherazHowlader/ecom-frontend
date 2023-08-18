@@ -1,4 +1,3 @@
-import axios from "axios";
 import Cart from "../../../service/Cart";
 import { useToast } from 'vue-toastification';
 const toast = useToast();

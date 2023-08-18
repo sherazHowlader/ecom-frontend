@@ -1,16 +1,20 @@
 import Token from "../../../service/Token";
 import Cookies from 'js-cookie';
+import router from "../../../router/index.js";
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
 export const login = ({commit, dispatch}, formData) => {
     Token.login("/login", formData)
         .then((response) => {
             commit('isAuthenticated', response.data.token)
-
             commit('auth/user_info', response.data.user, { root: true });
             Cookies.set("token", response.data.token, {
                 sameSite: "lax",
                 secure: true,
             });
+            router.push({ name: 'home' });
+            toast.success("Welcome back! You have successfully logged in")
         })
         .catch((error) => {
             console.log(error.response.data.message);
@@ -42,6 +46,8 @@ export const logOut = ({commit, dispatch}) => {
         .then((response) => {
             Cookies.remove("token");
             commit('auth/user_info', '', { root: true });
+            toast.success(response.data.msg)
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response.data.message);
