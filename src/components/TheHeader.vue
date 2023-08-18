@@ -48,7 +48,7 @@
             <div class="top-middle">
               <ul class="useful-links">
                 <li>
-                  <router-link :to="{name: 'home'}"> Home</router-link>
+                  <router-link :to="{name: 'home'}"> Home </router-link>
                 </li>
                 <li>
                   <a href="about-us">About Us</a>
@@ -66,10 +66,16 @@
                 Hello
               </div>
               <ul class="user-login">
-                <li>
-                  <router-link to="/login"> Sign In</router-link>
+                <li v-if="userInfo">
+                  {{ userInfo.full_name }}
                 </li>
-                <li>
+                <li v-if="userInfo">
+                  <router-link to="#" @click="logOut()"> Log Out </router-link>
+                </li>
+                <li v-show="!userInfo">
+                  <router-link to="/login"> Sign In  </router-link>
+                </li>
+                <li v-show="!userInfo">
                   <a href="register">Register</a>
                 </li>
               </ul>
@@ -323,6 +329,10 @@ export default {
       loadCartItem: 'cart/getCartItems',
       removeCartItem: 'cart/removeItem',
       loadCategories: 'category/getCategories',
+
+      loadToken: 'token/authToken',
+      loadUserInfo: 'auth/userInfo',
+      logOut: 'token/logOut'
     })
   },
   computed: {
@@ -330,11 +340,19 @@ export default {
       carts: "cart/items",
       subtotal: "cart/subtotal",
       categories: "category/allCategories",
+
+      userInfo: 'auth/user_info',
+      hasToken: 'token/hasToken',
     })
   },
   mounted() {
     this.loadCartItem();
     this.loadCategories();
+
+    // this.loadToken();
+    if (this.hasToken){
+      this.loadUserInfo();
+    }
   },
 }
 </script>
