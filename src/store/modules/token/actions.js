@@ -5,18 +5,26 @@ import {useToast} from 'vue-toastification';
 
 const toast = useToast();
 
+export const saveInfo = ({commit}, response) => {
+    commit('isAuthenticated', response.data.token);
+    commit('auth/user_info', response.data.user, {root: true});
+    Cookies.set("token", response.data.token, {
+        sameSite: "lax",
+        secure: true,
+    });
+    router.push({name: 'home'}).then(() => {
+        toast.success(response.data.message)
+    });
+}
+
 export const login = ({commit, dispatch}, formData) => {
     Token.login("/login", formData)
         .then((response) => {
-            commit('isAuthenticated', response.data.token)
-            commit('auth/user_info', response.data.user, {root: true});
-            Cookies.set("token", response.data.token, {
-                sameSite: "lax",
-                secure: true,
-            });
-            router.push({name: 'home'}).then(() => {
-                toast.success("Welcome back! You have successfully logged in")
-            });
+            if (response.data.success){
+                dispatch('saveInfo', response);
+            }else {
+                toast.warning(response.data.message)
+            }
         })
         .catch((error) => {
             console.log(error.response.data.message);
@@ -26,18 +34,10 @@ export const login = ({commit, dispatch}, formData) => {
 export const register = ({commit, dispatch}, formData) => {
     Token.login("/register", formData)
         .then((response) => {
-            commit('isAuthenticated', response.data.token)
-            commit('auth/user_info', response.data.user, {root: true});
-            Cookies.set("token", response.data.token, {
-                sameSite: "lax",
-                secure: true,
-            });
-            router.push({name: 'home'}).then(() => {
-                toast.success("You have successfully registered")
-            });
+            dispatch('saveInfo', response);
         })
         .catch((error) => {
-            console.log(error.response.data.message);
+            toast.warning(error.response.data.message)
         });
 }
 
