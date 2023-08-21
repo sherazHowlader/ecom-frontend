@@ -31,6 +31,12 @@ const routes = [
         meta: {hideForAuth: true}
     },
     {
+        path: '/register',
+        name: 'register',
+        component: () => import('../components/pages/register.vue'),
+        meta: {hideForAuth: true}
+    },
+    {
         path: '/checkout',
         name: 'checkout',
         component: () => import('../components/pages/checkout.vue'),

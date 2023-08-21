@@ -184,12 +184,7 @@ export default {
       removeCartItem: 'cart/removeItem',
       applyCoupon: 'coupon/applyCoupon',
       cancelCoupon: 'coupon/cancelCoupon',
-      token: 'token/getToken',
     }),
-  },
-
-  mounted() {
-    this.token();
   },
 }
 </script>

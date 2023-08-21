@@ -73,10 +73,10 @@
                   <router-link to="#" @click="logOut()"> Log Out </router-link>
                 </li>
                 <li v-if="!userInfo">
-                  <router-link to="/login"> Sign In  </router-link>
+                  <router-link :to="{name: 'login'}"> Sign In  </router-link>
                 </li>
                 <li v-if="!userInfo">
-                  <a href="register">Register</a>
+                  <router-link :to="{name: 'register'}"> Register </router-link>
                 </li>
               </ul>
             </div>
