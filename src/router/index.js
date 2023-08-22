@@ -28,19 +28,19 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('../components/pages/login.vue'),
-        meta: {hideForAuth: true}
     },
     {
         path: '/register',
         name: 'register',
         component: () => import('../components/pages/register.vue'),
-        meta: {hideForAuth: true}
     },
     {
         path: '/checkout',
         name: 'checkout',
         component: () => import('../components/pages/checkout.vue'),
-        meta: {requiresAuth: true}
+        meta: {
+            auth: true
+        }
     },
     {
         path: '/:catchAll(.*)',
@@ -55,13 +55,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.getters['token/isAuthenticated'];
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const isAuthenticated = store.getters['token/hasToken'];
+    const requiresAuth = to.matched.some(record => record.meta.auth);
     if (to.path === '/login' && isAuthenticated) {
         next('/')
-        toast.warning('You are logged in', {
-            position: 'bottom-right'
-        });
+        console.log('You are logged in')
         return;
     }
 
