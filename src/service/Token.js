@@ -1,23 +1,17 @@
-import {
-    Api
-} from "./axiosInstance";
+import {Api} from "./axiosInstance";
 
 const END_POINT = '/mytoken';
 
 export default {
-    get() {
-        return Api.get(END_POINT);
-    },
-
-    coupon(url, data) {
-        return Api.post(`${url}`, data);
+    get(url) {
+        return Api.get(`${url}`);
     },
 
     login(url, data) {
         return Api.post(`${url}`, data);
     },
 
-    getCoupon(url, data) {
-        return Api.get(`${url}`, data);
+    logOut(url) {
+        return Api.delete(`${url}`);
     },
 }

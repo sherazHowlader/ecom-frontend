@@ -48,7 +48,7 @@
             <div class="top-middle">
               <ul class="useful-links">
                 <li>
-                  <router-link :to="{name: 'home'}"> Home</router-link>
+                  <router-link :to="{name: 'home'}"> Home </router-link>
                 </li>
                 <li>
                   <a href="about-us">About Us</a>
@@ -66,11 +66,17 @@
                 Hello
               </div>
               <ul class="user-login">
-                <li>
-                  <router-link to="/login"> Sign In</router-link>
+                <li v-if="userInfo">
+                  {{ userInfo.full_name }}
                 </li>
-                <li>
-                  <a href="register">Register</a>
+                <li v-if="userInfo">
+                  <router-link to="#" @click="logOut()"> Log Out </router-link>
+                </li>
+                <li v-if="!userInfo">
+                  <router-link :to="{name: 'login'}"> Sign In  </router-link>
+                </li>
+                <li v-if="!userInfo">
+                  <router-link :to="{name: 'register'}"> Register </router-link>
                 </li>
               </ul>
             </div>
@@ -165,7 +171,7 @@
                                 cart.discount_price ? cart.discount_price : cart.regular_price
                               }} </span>
                           </p>
-                          <small>{{cart.product_variant}}</small>
+                          <small>{{cart.variant}}</small>
                         </div>
                       </li>
 
@@ -315,27 +321,38 @@ export default {
   name: "TheHeader",
   data() {
     return {
-      path: 'http://127.0.0.1:8000/',
     }
   },
 
   methods: {
     ...mapActions({
-      loadItem: 'cart/getCartItems',
+      loadCartItem: 'cart/getCartItems',
       removeCartItem: 'cart/removeItem',
-      loadCategories: 'product/getCategories',
+      loadCategories: 'category/getCategories',
+
+      loadToken: 'token/authToken',
+      loadUserInfo: 'auth/userInfo',
+      logOut: 'token/logOut'
     })
   },
   computed: {
     ...mapGetters({
       carts: "cart/items",
       subtotal: "cart/subtotal",
-      categories: "product/allCategories",
+      categories: "category/allCategories",
+
+      userInfo: 'auth/user_info',
+      hasToken: 'token/hasToken',
     })
   },
   mounted() {
-    this.loadItem();
+    this.loadCartItem();
     this.loadCategories();
+
+    this.loadToken();
+    if (this.hasToken){
+      this.loadUserInfo();
+    }
   },
 }
 </script>

@@ -1,5 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
-import store from "../store";
+import store from "../store/index.js";
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
 const routes = [
     {
@@ -11,7 +13,7 @@ const routes = [
         path: '/product/:slug',
         name: 'product-details',
         component: () => import('../components/pages/product-details.vue'),
-    },    
+    },
     {
         path: '/categorie/:slug',
         name: 'categories',
@@ -26,13 +28,19 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('../components/pages/login.vue'),
-        meta: { hideForAuth: true }
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('../components/pages/register.vue'),
     },
     {
         path: '/checkout',
         name: 'checkout',
         component: () => import('../components/pages/checkout.vue'),
-        meta: { requiresAuth: true }
+        meta: {
+            auth: true
+        }
     },
     {
         path: '/:catchAll(.*)',
@@ -46,16 +54,12 @@ const router = createRouter({
     routes
 })
 
-// Auth token ta load kora hoiche
-store.dispatch('tokenLoad')
-
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.getters.isAuthenticated;
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-    if (to.path === '/login' && isAuthenticated){
+    const isAuthenticated = store.getters['token/hasToken'];
+    const requiresAuth = to.matched.some(record => record.meta.auth);
+    if (to.path === '/login' && isAuthenticated) {
         next('/')
-        console.log('sorry you are logged in')
+        console.log('You are logged in')
         return;
     }
 
@@ -64,8 +68,6 @@ router.beforeEach((to, from, next) => {
         return;
     }
     next();
-
-    // TODO: http://127.0.0.1:8000/login eta likhe dhukle dhuke jay
 });
 
 export default router

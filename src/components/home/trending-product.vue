@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import {mapGetters, mapActions} from 'vuex';
 
 export default {
@@ -71,16 +70,14 @@ export default {
 
   data() {
     return {
-      quantity: 1,
-      variant: '',
     }
   },
 
   methods: {
     ...mapActions({
       addToCart: 'cart/addToCart',
-      productsLoad: 'product/allProduct',
-      token: 'cart/token',
+      loadProducts: 'product/allProduct',
+      loadToken: 'token/csrfToken',
     }),
   },
 
@@ -92,8 +89,8 @@ export default {
   },
 
   mounted() {
-    this.productsLoad();
-    this.token();
+    this.loadProducts();
+    this.loadToken();
   }
 }
 </script>

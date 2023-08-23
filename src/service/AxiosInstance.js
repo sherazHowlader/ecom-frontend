@@ -1,7 +1,7 @@
 import axios from "axios";
-import store from "../store";
+import Cookies from "js-cookie";
 
-const API_BASE_URL = "https://ecom-backend.test/api/";
+const API_BASE_URL = "http://127.0.0.1:8000/api/";
 
 export const Api = axios.create({
     baseURL: API_BASE_URL,
@@ -9,17 +9,32 @@ export const Api = axios.create({
     withCredentials: true,
 });
 
-Api.defaults.withCredentials = true;
-
-// api te request jawar age header a deafult token set kora
 Api.interceptors.request.use(
-    function (request) {
+    async function (request) {
         request.headers = {
-            'Authorization': 'Bearer ' + store.getters.isAuthenticated,
+            ...request.headers,
+            'Authorization': 'Bearer ' + Cookies.get('token'),
             'Accept': 'application/json',
         };
+
+        const csrfToken = await getCsrfToken();
+        if (csrfToken) {
+            request.headers['X-XSRF-TOKEN'] = csrfToken;
+        }
         return request;
-    }, function (error) {
+    },
+    function (error) {
         return Promise.reject(error);
     }
 );
+
+async function getCsrfToken() {
+    const csrfCookie = document.cookie
+        .split(";")
+        .find(cookie => cookie.trim().startsWith("XSRF-TOKEN="));
+
+    if (csrfCookie) {
+        return csrfCookie.split("=")[1];
+    }
+    return null;
+}

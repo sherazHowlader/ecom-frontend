@@ -1,4 +1,3 @@
-import axios from "axios";
 import Product from "../../../service/Product";
 
 export const allProduct = ({commit}) => {
@@ -26,13 +25,6 @@ export const getVariant = ({commit}, slug) => {
     Product.variant('product-variant',slug)
         .then((response) => {
             commit('product_variants', response.data);
-        })
-}
-
-export const getCategories = ({commit}) => {
-    Product.all('categories')
-        .then((response) => {
-            commit('all_categories', response.data);
         })
 }
 

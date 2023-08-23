@@ -2,10 +2,6 @@ export const items = (state) => {
     return state.items;
 }
 
-export const token = (state) => {
-    return state.token;
-}
-
 export const quantity = (state) => {
     let sum = 0;
     for (let i = 0; i < state.items.length; i++) {

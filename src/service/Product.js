@@ -16,12 +16,4 @@ export default {
     variant(url, slug) {
         return Api.get(`${url}/${slug}`);
     },
-
-    // store(url, data) {
-    //     return Api.post(`${url}`, data);
-    // },
-
-    // delete(url, SKU) {
-    //     return Api.delete(`${url}/${SKU}`);
-    // },
 }

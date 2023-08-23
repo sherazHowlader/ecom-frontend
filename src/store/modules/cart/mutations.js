@@ -1,55 +1,64 @@
-import {token} from "./actions.js";
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
-export const add_items = (state, { product }) => {
-    const items = state.items.find(item => {
+export const add_item = (state, { product }) => {
+    const hasItems = state.items.find(item => {
       return item.SKU === product.SKU;
     });
   
-    if (items) {
-      return items.quantity++;
+    if (hasItems) {
+        toast.success('Already added. Incremented!')
+        return hasItems.quantity++;
     } else {
-        console.log(product);
-      product.quantity = 1; // Set the quantity to 1 for the new item
-      state.items.push(product); // Push the 'product' object directly
+        product.quantity = 1;
+        state.items.push(product);
+        toast.success('Item added in cart')
     }
-  }
+}
+
+export const add_items = (state, { product, quantity }) => {
+    const hasItems = state.items.find(item => {
+      return item.SKU === product.SKU;
+    });
+
+    if (hasItems) {
+        hasItems.quantity += parseInt(quantity) || 1;
+        toast.success('Already added. Incremented!')
+    } else {
+        product.quantity = quantity || 1;
+        state.items.push(product);
+        toast.success('Item added in cart')
+    }
+}
 
 export const set_items = (state, items) => {
     state.items = items
 }
 
 export const inc = (state, cart) => {
-    let items = state.items.find(item => {
-        return item.SKU == cart.SKU;
+    let hasItems = state.items.find(item => {
+        return item.SKU === cart.SKU;
     });
-    // console.log(items)
-    // console.log(cart)
 
-    // item.SKU == cart.SKU ei 2 ta match korle quantity increment hobe
-    if (items) {
-        return items.quantity++;
+    if (hasItems) {
+        toast.success('Quantity incremented!')
+        return hasItems.quantity++;
     }
 }
 
 export const dec = (state, cart) => {
-    let items = state.items.find(item => {
-        return item.SKU == cart.SKU;
+    let hasItems = state.items.find(item => {
+        return item.SKU === cart.SKU;
     });
 
-    if (items) {
-        return items.quantity--;
+    if (hasItems) {
+        toast.info("Quantity decremented!")
+        return hasItems.quantity--;
     }
 }
 
 export const remove_items = (state, cart) => {
     state.items = state.items.filter((item) => {
         return item.SKU !== cart.SKU;
-        // ekhane emon 2 ta colum dhorte je 2 ta colum change hoy na
-        // item.product_id __dhorle hobe na...karon variant alada holeo id to ekhoi thake
     })
-}
-
-export const Token = (state, token) => {
-    state.token = token;
-    localStorage.setItem('tn', token);
 }

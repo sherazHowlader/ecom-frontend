@@ -1,5 +1,6 @@
-import axios from "axios";
 import Cart from "../../../service/Cart";
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
 export const getCartItems = ({commit}) => {
     Cart.all()
@@ -9,16 +10,16 @@ export const getCartItems = ({commit}) => {
 }
 
 export const addToCart = ({ commit }, product) => {
-    // var qty = quantity ? quantity: 1;
-    // var variant = variant ? variant: 'Deafult';
+    commit('add_item', {product: product});
+    Cart.store('add-cart-item', {product: product});
+}
 
-    commit('add_items', {product: product});
-    Cart.store('add-cart-item', {product_id: product.id});
+export const addToCarts = ({ commit }, {product, quantity}) => {
+    commit('add_items', { product: product, quantity: quantity});
+    Cart.store('add-cart-item', { product: product, quantity: quantity });
 }
 
 export const inc = ({commit}, cart) => {
-    // console.log(cart);
-
     commit('inc', cart) //for local update
     Cart.inc('cart-inc', cart.SKU); //for DB update
 }
@@ -34,17 +35,11 @@ export const removeItem = ({commit}, cart) => {
     Cart.delete('cart-item-remove', cart.SKU);
 }
 
-export const token = ({commit}) => {
-    // Cart.getToken('/csrf-token')
-    //     .then((items) => {
-    //         commit('Token', items.data.token);
-    //         console.log(items.data);
-    //     });
-};
-
 export const placeOrder = ({commit} , order) => {
     Cart.store('place-order', order)
         .then((items) => {
-        console.log(items.data);
+        console.log(items.data.status);
+
+        toast.success(items.data.status)
     })
 }

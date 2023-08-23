@@ -18,10 +18,9 @@
         </div>
     </div>
 
-
     <section class="checkout-wrapper section">
         <div class="container">
-            <form @submit.prevent="placeOrder(order)">
+            <form @submit.prevent="placeOrder({order, carts, subtotal, discount})">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="checkout-steps-form-style-1">
@@ -348,7 +347,7 @@ export default {
                 customer_post_code : null,
                 customer_country : null,
                 customer_state : null,
-                
+
                 shipping_first_name : null,
                 shipping_last_name : null,
                 shipping_email : null,
@@ -363,15 +362,16 @@ export default {
     },
     computed: {
         ...mapGetters({
-            couponName: 'couponName',
+            couponName: 'coupon/name',
             subtotal: 'cart/subtotal',
-            discount: 'couponDiscount',
+            discount: 'coupon/discount',
+            carts: 'cart/items',
         })
     },
     methods:{
         ...mapActions({
-            applyCoupon: 'applyCoupon',
-            cancelCoupon: 'cancelCoupon',
+            applyCoupon: 'coupon/applyCoupon',
+            cancelCoupon: 'coupon/cancelCoupon',
             placeOrder: 'cart/placeOrder',
         })
     },
